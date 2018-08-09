@@ -1,4 +1,5 @@
 var fs = require('fs');
+var path = require('path');
 var Yaml = require('yaml').default;
 var outputConfig = {};
 
@@ -36,15 +37,16 @@ function mergeFile(path) {
 }
 
 module.exports = function(options) {
+  var dirname = path.dirname(module.parent.filename);
   var env = process.env.NODE_ENV || 'local';
 
   if (options.include) {
-    for (var path of options.include) {
-      mergeFile(path);
+    for (var filename of options.include) {
+      mergeFile(path.resolve(dirname, filename));
     }
   }
 
-  mergeFile(`${options.configPath}${env}.yaml`);
+  mergeFile(path.resolve(dirname, options.configPath, `${env}.yaml`));
 
   for (var variable in outputConfig) {
     process.env[variable] = outputConfig[variable];
