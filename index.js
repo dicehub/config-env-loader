@@ -1,9 +1,10 @@
-var fs = require('fs');
-var path = require('path');
-var Yaml = require('yaml').default;
-var outputConfig = {};
+"use strict";
 
-function merge(cfg) {
+var fs = require("fs");
+var path = require("path");
+var Yaml = require("yaml").default;
+
+function merge(cfg, outputConfig) {
   if (!cfg) {
     return;
   }
@@ -13,40 +14,53 @@ function merge(cfg) {
   }
 }
 
-function getFileContent(path) {
+function getFileContent(path, isThrow) {
   try {
-    return Yaml.parse(
-      fs.readFileSync(
-        path,
-        { encoding: 'utf-8' }
-      )
-    );
-  }
+    var fileContent = fs.readFileSync(path, { encoding: "utf-8" });
 
-  catch(e) {
+    if (!fileContent) {
+      return;
+    }
+
+    return Yaml.parse(fileContent);
+  } catch (e) {
+    if (isThrow) {
+      throw e;
+    }
+
     return null;
   }
 }
 
-function mergeFile(path) {
-  var content = getFileContent(path);
+function mergeFile(path, outputConfig, isThrow) {
+  var content = getFileContent(path, isThrow);
 
   if (content) {
-    merge(content);
+    merge(content, outputConfig);
   }
 }
 
 module.exports = function(options) {
-  var dirname = path.dirname(module.parent.filename);
-  var env = process.env.NODE_ENV || 'local';
-
-  if (options.include) {
-    for (var filename of options.include) {
-      mergeFile(path.resolve(dirname, filename));
-    }
+  if (!options) {
+    return;
   }
 
-  mergeFile(path.resolve(dirname, options.configPath, `${env}.yaml`));
+  var outputConfig = {};
+  var dirname = path.dirname(module.parent.filename);
+  var env = process.env.NODE_ENV || "local";
+
+  if (options.include) {
+    options.include.forEach(function(filename) {
+      mergeFile(path.resolve(dirname, filename), outputConfig, true);
+    });
+  }
+
+  if (options.configPath) {
+    mergeFile(
+      path.resolve(dirname, options.configPath, env + ".yaml"),
+      outputConfig
+    );
+  }
 
   for (var variable in outputConfig) {
     process.env[variable] = outputConfig[variable];
