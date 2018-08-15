@@ -3,11 +3,22 @@
 var spawn = require('cross-spawn');
 var path = require('path');
 var argv = require('minimist')(process.argv.slice(2));
+var configEnvLoader = require('@dicehub/config-env-loader');
+var configEnvLoaderOptions = {};
 
-var conf = require('@dicehub/config-env-loader')({
-  configPath: argv.configPath,
-  include: argv.include
-});
+if (argv.configPath) {
+  configEnvLoaderOptions.configPath = path.resolve(process.env.PWD, argv.configPath);
+}
+
+if (argv.include) {
+  configEnvLoaderOptions.include = [];
+
+  argv.include.split(',').forEach((filePath) => {
+    configEnvLoaderOptions.include.push(path.resolve(process.env.PWD, filePath));
+  });
+}
+
+var c = configEnvLoader(configEnvLoaderOptions);
 
 var spawnArgs = [];
 for (var i = 1; i < argv._.length; i++) {

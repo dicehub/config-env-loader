@@ -51,13 +51,21 @@ module.exports = function(options) {
 
   if (options.include) {
     options.include.forEach(function(filename) {
-      mergeFile(path.resolve(dirname, filename), outputConfig, true);
+      var filePath = path.isAbsolute(filename)
+        ? filename
+        : path.resolve(dirname, filename);
+
+      mergeFile(filePath, outputConfig, true);
     });
   }
 
   if (options.configPath) {
+    var filePath = path.isAbsolute(options.configPath)
+      ? path.resolve(options.configPath, env + '.yaml')
+      : path.resolve(dirname, options.configPath, env + '.yaml');
+
     mergeFile(
-      path.resolve(dirname, options.configPath, env + '.yaml'),
+      filePath,
       outputConfig
     );
   }

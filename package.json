@@ -1,6 +1,6 @@
 {
   "name": "@dicehub/config-env-loader",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Loads global configurations for client and server from root directory",
   "keywords": [
     "config",
