@@ -37,7 +37,7 @@ TEST_VAR: 20
 ```js
 // <root>/index.js
 
-require(('@dicehub/config-env-loader'))({
+require('@dicehub/config-env-loader')({
   // Config directory
   configPath: './config/',
 });
@@ -54,7 +54,7 @@ The value is string because [https://nodejs.org/dist/latest-v10.x/docs/api/proce
 ## Options:
 
 ```js
-var conf = require(('@dicehub/config-env-loader'))({
+var conf = require('@dicehub/config-env-loader')({
   // The directory where the configuration files for the NODE_ENV are located
   configPath: './config/',
 

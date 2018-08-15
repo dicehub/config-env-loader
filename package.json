@@ -18,8 +18,8 @@
     "test": "jest",
     "test-dev": "jest --notify --watch"
   },
-  "author": "Dicehub team",
-  "license": "ISC",
+  "author": "dicehub Team",
+  "license": "MIT",
   "dependencies": {
     "cross-spawn": "^6.0.5",
     "minimist": "^1.2.0",
