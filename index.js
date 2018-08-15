@@ -1,8 +1,8 @@
-"use strict";
+'use strict';
 
-var fs = require("fs");
-var path = require("path");
-var Yaml = require("yaml").default;
+var fs = require('fs');
+var path = require('path');
+var Yaml = require('yaml').default;
 
 function merge(cfg, outputConfig) {
   if (!cfg) {
@@ -16,7 +16,7 @@ function merge(cfg, outputConfig) {
 
 function getFileContent(path, isThrow) {
   try {
-    var fileContent = fs.readFileSync(path, { encoding: "utf-8" });
+    var fileContent = fs.readFileSync(path, { encoding: 'utf-8' });
 
     if (!fileContent) {
       return;
@@ -47,7 +47,7 @@ module.exports = function(options) {
 
   var outputConfig = {};
   var dirname = path.dirname(module.parent.filename);
-  var env = process.env.NODE_ENV || "local";
+  var env = process.env.NODE_ENV || 'local';
 
   if (options.include) {
     options.include.forEach(function(filename) {
@@ -57,7 +57,7 @@ module.exports = function(options) {
 
   if (options.configPath) {
     mergeFile(
-      path.resolve(dirname, options.configPath, env + ".yaml"),
+      path.resolve(dirname, options.configPath, env + '.yaml'),
       outputConfig
     );
   }

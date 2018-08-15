@@ -1,6 +1,6 @@
 {
   "name": "@dicehub/config-env-loader",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Loads global configurations for client and server from root directory",
   "keywords": [
     "config",
@@ -21,6 +21,8 @@
   "author": "Dicehub team",
   "license": "ISC",
   "dependencies": {
+    "cross-spawn": "^6.0.5",
+    "minimist": "^1.2.0",
     "yaml": "^1.0.0-rc.7"
   },
   "devDependencies": {
@@ -35,5 +37,8 @@
   },
   "bugs": {
     "url": "https://github.com/dicehub/config-env-loader/issues"
+  },
+  "bin": {
+    "config-env-loader": "./cli-loader.js"
   }
 }
