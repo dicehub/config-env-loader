@@ -16,14 +16,14 @@ beforeEach(() => {
 });
 
 describe('Load configurations', () => {
-  test('Load local config if NODE_ENV is not defined', () => {
+  test('Load development config if NODE_ENV is not defined', () => {
     delete process.env.NODE_ENV;
 
     require(('../index'))({
       configPath: '../config',
     });
 
-    expect(process.env.LOCAL_ENV_VAR).toEqual('42');
+    expect(process.env.DEVELOPMENT_ENV_VAR).toEqual('42');
   });
 
   test('Load development config if NODE_ENV=development', () => {
@@ -76,7 +76,6 @@ describe('Load configurations', () => {
     expect(process.env.DEVELOPMENT_ENV_VAR).toEqual('42');
 
     expect(process.env.TEST_ENV_VAR).toEqual(undefined);
-    expect(process.env.LOCAL_ENV_VAR).toEqual(undefined);
     expect(process.env.PRODUCTION_ENV_VAR).toEqual(undefined);
     expect(process.env.STAGING_ENV_VAR).toEqual(undefined);
   });
@@ -99,7 +98,7 @@ describe('Load configurations', () => {
     });
 
     expect(conf.BASE_ENV).toEqual(42);
-    expect(conf.LOCAL_ENV_VAR).toEqual(42);
+    expect(conf.DEVELOPMENT_ENV_VAR).toEqual(42);
   });
 });
 
@@ -125,14 +124,14 @@ describe('Possible errors: ', () => {
   });
 
   test('Should not throw an error if config file is empty', () => {
-    process.env.NODE_ENV = 'local';
+    process.env.NODE_ENV = 'development';
 
     require(('../index'))({
       include: ['../include/empty.yaml', '../include/base.yaml'],
       configPath: '../config/'
     });
 
-    expect(process.env.LOCAL_ENV_VAR).toEqual('42');
+    expect(process.env.DEVELOPMENT_ENV_VAR).toEqual('42');
     expect(process.env.BASE_ENV).toEqual('42');
   });
 
