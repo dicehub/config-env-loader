@@ -47,7 +47,7 @@ module.exports = function(options) {
 
   var outputConfig = {};
   var dirname = path.dirname(module.parent.filename);
-  var env = process.env.NODE_ENV || 'local';
+  var env = process.env.NODE_ENV || 'development';
 
   if (options.include) {
     options.include.forEach(function(filename) {

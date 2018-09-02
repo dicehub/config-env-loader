@@ -67,3 +67,7 @@ var conf = require('@dicehub/config-env-loader')({
 process.env.TEST_VAR // '42'
 conf.TEST_VAR // 42
 ```
+
+## Default config file
+
+By default, if NODE_ENV is not provided, the configuration development.yaml is loaded
