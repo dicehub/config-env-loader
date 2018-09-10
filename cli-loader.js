@@ -34,5 +34,5 @@ for (var prop in argv) {
   spawnArgs.push(argv[prop]);
 }
 
-spawn(argv._[0], spawnArgs, { stdio: 'inherit' })
+spawn(argv._[0], process.argv.slice(4), { stdio: 'inherit' })
   .on('exit', exitCode => process.exit(exitCode));
