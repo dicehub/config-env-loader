@@ -46,7 +46,7 @@ require('@dicehub/config-env-loader')({
 And now, every variable that is in the file `config/development.yaml` is available through the `process.env`
 
 ```js
-console.log(process.env.TEST_VAR) // '42';
+console.log(process.env.DEVELOPMENT_ENV_VAR) // '42';
 ```
 
 The value is string because [https://nodejs.org/dist/latest-v10.x/docs/api/process.html#process_process_env](https://nodejs.org/dist/latest-v10.x/docs/api/process.html#process_process_env)
@@ -70,4 +70,5 @@ conf.TEST_VAR // 42
 
 ## Default config file
 
-By default, if NODE_ENV is not provided, the configuration development.yaml is loaded
+1) By default, if NODE_ENV is not provided, the configuration development.yaml is loaded
+2) if in config folder there is a file `general.yaml` then it will be loaded before the `{NODE_ENV}.yaml`

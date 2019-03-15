@@ -24,6 +24,10 @@ function getFileContent(path, isThrow) {
 
     return Yaml.parse(fileContent);
   } catch (e) {
+    if (e.name === 'YAMLSemanticError') {
+      console.error(e.message);
+    }
+
     if (isThrow) {
       throw e;
     }
@@ -60,6 +64,11 @@ module.exports = function(options) {
   }
 
   if (options.configPath) {
+    var generalFile = path.resolve(dirname, options.configPath, 'general.yaml');
+    if (fs.existsSync(generalFile)) {
+      mergeFile(generalFile, outputConfig);
+    }
+
     var filePath = path.isAbsolute(options.configPath)
       ? path.resolve(options.configPath, env + '.yaml')
       : path.resolve(dirname, options.configPath, env + '.yaml');
