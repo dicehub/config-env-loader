@@ -1,6 +1,6 @@
 {
   "name": "@dicehub/config-env-loader",
-  "version": "1.2.0",
+  "version": "1.3.1",
   "description": "Loads global configurations for client and server from root directory",
   "keywords": [
     "config",
@@ -15,18 +15,18 @@
   ],
   "main": "index.js",
   "scripts": {
-    "test": "jest",
-    "test-dev": "jest --watch"
+    "test": "jest test/test.js",
+    "test-dev": "jest test/test.js --watch"
   },
   "author": "dicehub Team",
   "license": "MIT",
   "dependencies": {
     "cross-spawn": "^6.0.5",
     "minimist": "^1.2.0",
-    "yaml": "^1.0.0-rc.7"
+    "yaml": "^1.4.0"
   },
   "devDependencies": {
-    "jest": "^23.5.0"
+    "jest": "^24.5.0"
   },
   "files": [
     "index.js",

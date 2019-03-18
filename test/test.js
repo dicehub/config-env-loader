@@ -46,26 +46,6 @@ describe('Load configurations', () => {
     expect(process.env.PRODUCTION_ENV_VAR).toEqual('42');
   });
 
-  test('Load staging config if NODE_ENV=staging', () => {
-    process.env.NODE_ENV = 'staging';
-
-    require(('../index'))({
-      configPath: '../config',
-    });
-
-    expect(process.env.STAGING_ENV_VAR).toEqual('42');
-  });
-
-  test('Load test config if NODE_ENV=test', () => {
-    process.env.NODE_ENV = 'test';
-
-    require(('../index'))({
-      configPath: '../config',
-    });
-
-    expect(process.env.TEST_ENV_VAR).toEqual('42');
-  });
-
   test('Load only exact same config as NODE_ENV', () => {
     process.env.NODE_ENV = 'development';
 
@@ -74,21 +54,33 @@ describe('Load configurations', () => {
     });
 
     expect(process.env.DEVELOPMENT_ENV_VAR).toEqual('42');
-
-    expect(process.env.TEST_ENV_VAR).toEqual(undefined);
     expect(process.env.PRODUCTION_ENV_VAR).toEqual(undefined);
-    expect(process.env.STAGING_ENV_VAR).toEqual(undefined);
+  });
+
+  test('Load general config', () => {
+    require(('../index'))({
+      configPath: '../config'
+    });
+
+    expect(process.env.GENERAL_ENV_VAR).toEqual('42');
+    expect(process.env.DEVELOPMENT_ENV_VAR).toEqual('42');
   });
 
   test('Load additional config', () => {
-    process.env.NODE_ENV = 'test';
-
     require(('../index'))({
       include: ['../include/base.yaml', '../include/theme.yaml']
     });
 
     expect(process.env.MAIN_THEME).toEqual('light');
     expect(process.env.BASE_ENV).toEqual('42');
+  });
+
+  test('NODE_ENV must rewrite general config', () => {
+    require(('../index'))({
+      configPath: '../config',
+    });
+
+    expect(process.env.GENERAL_A1).toEqual('40');
   });
 
   test('The plugin must return the configuration', () => {
