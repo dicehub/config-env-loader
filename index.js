@@ -2,7 +2,7 @@
 
 var fs = require('fs');
 var path = require('path');
-var Yaml = require('yaml').default;
+var Yaml = require('yaml');
 
 function merge(cfg, outputConfig) {
   if (!cfg) {
@@ -55,9 +55,7 @@ module.exports = function(options) {
 
   if (options.include) {
     options.include.forEach(function(filename) {
-      var filePath = path.isAbsolute(filename)
-        ? filename
-        : path.resolve(dirname, filename);
+      var filePath = path.isAbsolute(filename) ? filename : path.resolve(dirname, filename);
 
       mergeFile(filePath, outputConfig, true);
     });
@@ -73,10 +71,7 @@ module.exports = function(options) {
       ? path.resolve(options.configPath, env + '.yaml')
       : path.resolve(dirname, options.configPath, env + '.yaml');
 
-    mergeFile(
-      filePath,
-      outputConfig
-    );
+    mergeFile(filePath, outputConfig);
   }
 
   for (var variable in outputConfig) {
