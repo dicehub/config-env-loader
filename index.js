@@ -62,7 +62,7 @@ module.exports = function(options) {
   }
 
   if (options.configPath) {
-    var generalFile = path.resolve(dirname, options.configPath, 'general.yaml');
+    var generalFile = path.resolve(dirname, options.configPath, 'common.yaml');
     if (fs.existsSync(generalFile)) {
       mergeFile(generalFile, outputConfig);
     }
